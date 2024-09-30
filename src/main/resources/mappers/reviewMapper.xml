@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.lesson03.mapper.ReviewMapper">
+	<!-- parameterType: Mapper 인터페이스의 selectReviewById 메소드의 파라미터 타입. -->
+	<select id="selectReviewById" parameterType="int" resultType="com.example.lesson03.domain.Review">
+		<!-- 
+			select문에 *로 가져오면 DB에 변동이 생겼을 때 문제가 생길 수 있음.
+			직접 모든 컬럼을 지정할 것.
+			쿼리문 작성 완료되면 Mysql workbench에서 에러 없는지 테스트해보기
+		 -->
+		SELECT
+			`id`
+			,`storeId`
+			,`menu`
+			,`userName`
+			,`point`
+			,`review`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`new_review`
+		WHERE
+			`id` = #{id}
+	</select>
+</mapper>
