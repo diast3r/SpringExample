@@ -24,4 +24,51 @@
 		WHERE
 			`id` = #{id}
 	</select>
+	
+	<!-- insert는 result가 없으므로 resultType 없어야 함. -->
+	<insert id="insertReview" parameterType="com.example.lesson03.domain.Review">
+		INSERT INTO `new_review`
+		(
+			`storeId`
+			,`menu`
+			,`userName`
+			,`point`
+			,`review`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{}
+			,#{}
+			,#{}
+			,#{}
+			,#{}
+			, NOW()
+			, NOW()
+		);
+	</insert>
+	
+	<insert id="insertReviewAsField" parameterType="map">
+		INSERT INTO `new_review`
+		(
+			`storeId`
+			,`menu`
+			,`userName`
+			,`point`
+			,`review`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{storeId}
+			,#{menu}
+			,#{userName}
+			,#{point}
+			,#{review}
+			, NOW()
+			, NOW()
+		);
+	</insert>
 </mapper>
