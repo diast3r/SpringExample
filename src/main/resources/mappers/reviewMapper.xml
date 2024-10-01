@@ -39,11 +39,11 @@
 		)
 		VALUES
 		(
-			#{}
-			,#{}
-			,#{}
-			,#{}
-			,#{}
+			#{storeId}
+			,#{menu}
+			,#{userName}
+			,#{point}
+			,#{review}
 			, NOW()
 			, NOW()
 		);
