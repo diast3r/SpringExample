@@ -3,6 +3,8 @@ package com.example.lesson04.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.example.lesson04.domain.User;
+
 @Mapper
 public interface UserMapper {
 	// input: 4 개
@@ -13,4 +15,8 @@ public interface UserMapper {
 			@Param("email") String email,
 			@Param("introduce") String introduce
 			);
+	
+	// input: X
+	// output: User or null
+	public User selectLatestUser();
 }

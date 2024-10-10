@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<!-- 
+	타임리프 가져와서 쓰기
+	lang attr : 사이트를 한국어로 번역 기능 자꾸 뜨지 않게 해줌.
+ -->
+<head>
+<meta charset="UTF-8">
+<!-- 
+	타임리프 문법. model에 넣은 값을 키 이름으로 빼오기
+ -->
+<title th:text="${title}">최신 가입자</title>
+	<!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="container">
+		<!-- 
+			title이라는 키로 model에서 데이터를 찾고 있으면 텍스트를 덮어쓰고(없으면 그냥 최신가입자 텍스트 출력함).
+			${title} 또는 
+			[[${title}]] 로 데이터 가져올 수 있음.
+		 -->
+		<h1 th:text="${title}">최신 가입자</h1>
+		<table class="table table-striped">
+			<tr>
+				<th>번호</th>
+				<td th:text="${result.id}"></td>
+			</tr>
+			<tr>
+				<th>이름</th>
+				<td th:text="${result.name}"></td>
+			</tr>
+			<tr>
+				<th>생년월일</th>
+				<td th:text="${result.yyyymmdd}"></td>
+			</tr>
+			<tr>
+				<th>이메일</th>
+				<td th:text="${result.email}"></td>
+			</tr>
+			<tr>
+				<th>자기소개</th>
+				<td th:text="${result.introduce}"></td>
+			</tr>
+			<tr>
+				<th>생성일</th>
+				<td th:text="${result.createdAt}"></td>
+			</tr>
+			<tr>
+				<th>수정일</th>
+				<td th:text="${result.updatedAt}"></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
