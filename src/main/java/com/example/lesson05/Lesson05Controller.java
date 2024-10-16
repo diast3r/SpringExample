@@ -1,6 +1,10 @@
 package com.example.lesson05;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,5 +51,23 @@ public class Lesson05Controller {
 		model.addAttribute("users", users);
 		
 		return "lesson05/ex02";
+	}
+	
+	@GetMapping("/ex03")
+	public String ex03(Model model) {
+		Date date = new Date(); // 옛날부터 쓰던 날짜 객체. 요새는 잘 안 씀.
+		
+		model.addAttribute("date", date);
+		
+		LocalDate localDate = LocalDate.now(); // 날짜(시간 미포함)객체. static에 올라와있으므로 new 필요 없음.
+		model.addAttribute("localDate", localDate);
+		
+		LocalDateTime localDateTime = LocalDateTime.now(); // 날짜(시간 포함)객체. static에 올라와있으므로 new 필요 없음.
+		model.addAttribute("localDateTime", localDateTime);
+		
+		ZonedDateTime zonedDateTime = ZonedDateTime.now(); // utc 표준시 객체.
+		model.addAttribute("zonedDateTime", zonedDateTime);
+		
+		return "lesson05/ex03";
 	}
 }
