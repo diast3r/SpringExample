@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<!-- 
+	타임리프 가져와서 쓰기
+	lang attr : 사이트를 한국어로 번역 기능 자꾸 뜨지 않게 해줌.
+ -->
+<head>
+<meta charset="UTF-8">
+<title>회원 가입</title>
+	<!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="container">
+		<h1>회원가입</h1>
+		<form method="post" action="/lesson06/ex01/add-user">
+			<div class="form-group">
+				<label for="name">이름</label>
+				<input type="text" id="name" name="name" class="form-control col-4">
+			</div>
+			<div class="form-group">
+				<label for="yyyymmdd">생년월일</label>
+				<input type="text" id="yyyymmdd" name="yyyymmdd" class="form-control col-4">
+			</div>
+			<div class="form-group">
+				<label for="email">이메일</label>
+				<input type="text" id="email" name="email" class="form-control col-4">
+			</div>
+			<div class="form-group">
+				<label for="introduce">자기소개</label>
+				<textarea id="introduce" name="introduce" class="form-control"></textarea>
+			</div>
+			<!-- AJAX로 하기 위해 form 태그의 submit버튼을 없앰(일반 버튼으로 만듦) -->
+			<input type="button" id="joinBtn" value="회원가입" class="btn btn-info">
+		</form>
+	</div>
+	
+	<script>
+		// jquery 버전 slim 아닌지(이면 안 됨) 확인할 것.
+		$(document).ready(function() {
+			
+			// 1) form 태그
+			/*
+			$("form").on("submit", function(e) {
+				e.preventDefault(); // form 태그 동작 안 함.(다음 화면으로 넘어가지 않음)
+				
+				// alert("폼태그");
+				// validation check
+				let name = $("#name").val().trim();
+				if (name.length < 1) {
+					alert("이름을 입력하세요");
+					return false; // submit 이벤트를 종료할 때는 그냥 return; 으로는 안 됨.(submit만)
+				}
+				
+				let yyyymmdd = $("#yyyymmdd").val().trim();
+				if (yyyymmdd == "") {
+					alert("생년월일을 입력하세요");
+					return false;
+				}
+				
+				let email = $("input[name=email]").val().trim();
+				if (!email) {
+					alert("이메일을 입력하세요")
+					return false;
+				}
+				
+				alert("화원가입 완료");
+				
+				//submit 동작은 지금 단계에서는 안 함.
+			});
+			*/
+			
+			// 2) AJAX 통신 - jquery의 ajax 함수 사용
+			$("#joinBtn").on("click", function() {
+				// alert("클릭");
+				
+				// validation check
+				let name = $("#name").val().trim();
+				if (name.length < 1) {
+					alert("이름을 입력하세요");
+					return;
+				}
+				
+				let yyyymmdd = $("#yyyymmdd").val().trim();
+				if (yyyymmdd == "") {
+					alert("생년월일을 입력하세요");
+					return;
+				}
+				
+				let email = $("input[name=email]").val().trim();
+				if (!email) {
+					alert("이메일을 입력하세요")
+					return;
+				}
+				
+				let introduce = $("#introduce").val();
+				
+				// 파라미터 값 검증 
+				// 서버로 데이터 보내기 전에 이것 먼저 확인해보는 습관
+				console.log(name);
+				console.log(yyyymmdd);
+				console.log(email);
+				console.log(introduce);
+				
+				// AJAX
+				// $.ajax() -> 파라미터로 딕셔너리 보냄.
+				// request를 보내고 response를 받기도 하는 기능을 함
+				$.ajax({
+					// request
+					type:"post" // value("post")는 대소문자 구분 없지만, key는 무조건 소문자로
+					, url:"/lesson06/ex01/add-user"
+					, data:{"name":name, "yyyymmdd":yyyymmdd, "email":email, "introduce":introduce} // json으로 보내기
+					
+					// response
+					// callback 함수(response 받아 다시 여기로 돌아옴)
+					, success:function(data) { // data 파라미터: 서버 응답값(String)
+						// alert(data);
+						if (data == "성공") {
+							// 가입 완료 화면으로 이동
+							location.href = "http://localhost/lesson06/ex01/after-add-user-view";
+						}
+					}
+					, error:function(xhr, status, error) { // 이 파라미터들은 안 받아도 됨. 서버 에러 메시지나 브라우저 콘솔로 보는 게 나음.
+						alert("회원가입에 실패했습니다.");
+					}
+				});
+			});
+			
+		})
+	</script>
+	
+</body>
+</html>
