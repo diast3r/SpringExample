@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>회원가입</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="container">
+		<h1>회원가입</h1>
+		<div class="form-group">
+			<label for="name">이름</label>
+			
+			<div class="d-flex">
+				<input type="text" id="name" class="form-control col-4">
+				<button id="nameCheckBtn" type="button" class="ml-3 btn btn-warning">중복확인</button>
+			</div>
+			<small id="nameStatusArea" class="text-danger"></small>
+		</div>
+		<input type="button" id="joinBtn" value="회원가입" class="btn btn-info">
+	</div>
+	
+	<script>
+		$(document).ready(function() {
+			// 중복 확인 버튼 클릭
+			$("#nameCheckBtn").on("click", function() {
+				// nameStatusArea 하위 요소 초기화
+				$("#nameStatusArea").empty(); // 자식 요소 비움
+				
+				//alert("중복 확인");
+				let name = $("#name").val().trim();
+				
+				// validation
+				if (!name) {
+					// 태그 안쪽에 자식 요소 추가
+					$("#nameStatusArea").append('<span class="text-danger">이름이 비어있습니다.</span>');
+				}
+				
+				// AJAX - 이름 중복 확인
+				$.ajax({
+					// request
+					type:"get" // 조회목적이므로 get, 생략할 시 기본적으로 get
+					, url:"/lesson06/ex02/is-duplicated-name"
+					, data:{"name":name}
+					
+					// response
+					, success:function (data) { // json(String)을 받아 jqery가 dictionary 형태로 파싱해준 data를 받음. 
+						// {"code":200, "is_duplicated_name":true}
+						if (data.is_duplicated_name) {
+							// 중복일 때 문구 노출
+							$("#nameStatusArea").append('<span class="text-danger">중복된 이름입니다.</span>');
+						}
+					}
+					, error:function() {
+						alert("이름 중복확인에 실패했습니다.");
+					}
+				});
+			});
+			
+			// 회원가입 - 중복확인 마쳤는지 validation
+			$("#joinBtn").on("click", function() {
+				//alert("가입");
+				
+				// nameStatusArea에 자식요소 없으면 가입 가능
+				console.log($("#nameStatusArea").children().length);
+				if ($("#nameStatusArea").children().length > 0) {
+					alert("회원가입 불가");
+				}
+			});
+		});
+	</script>
+	
+</body>
+</html>

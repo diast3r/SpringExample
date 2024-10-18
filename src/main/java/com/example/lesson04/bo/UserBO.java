@@ -19,4 +19,8 @@ public class UserBO {
 	public User getLatestUser() {
 		return userMapper.selectLatestUser();
 	};
+	
+	public boolean isDuplicatedName(String name) {
+		return userMapper.isDuplicatedName(name);
+	}
 }

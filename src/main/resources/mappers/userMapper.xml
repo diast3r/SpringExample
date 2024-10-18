@@ -38,4 +38,14 @@
 		ORDER BY `id` DESC
 		LIMIT 1
 	</select>
+	
+	<select id="isDuplicatedName" parameterType="string" resultType="boolean">
+	<!-- 쿼리 실행 결과가 0이면 true, 0 이외의 수이면 false로 mybatis가 처리해줌. -->
+		SELECT
+			COUNT(*)
+		FROM
+			`new_user`
+		WHERE
+			`name` = #{name}
+	</select>
 </mapper>
