@@ -22,7 +22,7 @@ import lombok.ToString;
 @AllArgsConstructor // 파라미터가 모두 있는 생성자
 @NoArgsConstructor // 파라미터가 없는 생성자(기본)
 @Getter // getter을 자동으로 작성해줌. @Setter도 있음.
-@Builder // @Setter 대신 사용하는 어노테이션. 이게 더 낫다고 함.
+@Builder(toBuilder = true) // @Setter 대신 사용하는 어노테이션. 이게 더 낫다고 함. toBuilder = true : 필드 수정(업데이터)를 허용함. 생략 시 false
 @Entity // jpa 어노테이션. 이 객체는 엔티티다. DB-JPA 통신
 @Table(name = "new_student") // jakarta.persistence.Table 선택, spring boot 2.x 버전에서는 jakarta가 아니라 javax라는 패키지명임.
 public class StudentEntity {
@@ -40,7 +40,7 @@ public class StudentEntity {
 	@Column(name = "dreamJob")
 	private String dreamJob;
 	
-	@CreationTimestamp // 값이 null이어도 insert 되는 시간으로 채워짐. 이게 없으면 db에 null이 들어감.
+	@CreationTimestamp // 값이 null이어도 insert 되는 시간으로 채워짐. 이게 없으면 db에 null이 들어갈 수 있음.
 	@Column(name = "createdAt")
 	private LocalDateTime createdAt;
 	

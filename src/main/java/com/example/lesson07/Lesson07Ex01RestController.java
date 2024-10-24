@@ -33,4 +33,13 @@ public class Lesson07Ex01RestController {
 		// TODO BO에 메소드 구현
 		return studentBO.updateStudentDreamJobById(5, "디자이너");
 	}
+	
+	// D: Delete
+	// Delete는 반환하는 객체가 없으므로 우리가 원하는 String으로 출력할 것임.
+	@GetMapping("/delete")
+	public String delte() {
+		// id 5번인 레코드 삭제
+		studentBO.deleteStudentById(5);
+		return "삭제 완료";
+	}
 }
