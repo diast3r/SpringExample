@@ -30,7 +30,7 @@ public class Lesson07Ex01RestController {
 	@GetMapping("/update")
 	public StudentEntity update() {
 		// id가 5인 레코드의 dreamJob을 "디자이너"로 변경
-		// TODO BO에 메소드 구현
+		// BO에 메소드 구현
 		return studentBO.updateStudentDreamJobById(5, "디자이너");
 	}
 	
