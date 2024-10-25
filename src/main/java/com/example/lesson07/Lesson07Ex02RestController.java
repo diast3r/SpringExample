@@ -53,7 +53,12 @@ public class Lesson07Ex02RestController {
 		// where id >= 2 and id <= 4
 		return studentRepository.findByIdBetween(2, 4); // 양 끝값 포함 조회.(2>=, <=4)
 		
-		
+	}
+	
+	@GetMapping("/select2")
+	public List<StudentEntity> select2() {
+		// 장래희망이 '개발자' 인 데이터 조회
+		return studentRepository.findByDreamJob("개발자");
 	}
 	
 }

@@ -23,7 +23,7 @@ import lombok.ToString;
 @NoArgsConstructor // 파라미터가 없는 생성자(기본)
 @Getter // getter을 자동으로 작성해줌. @Setter도 있음.
 @Builder(toBuilder = true) // @Setter 대신 사용하는 어노테이션. 이게 더 낫다고 함. toBuilder = true : 필드 수정(업데이터)를 허용함. 생략 시 false
-@Entity // jpa 어노테이션. 이 객체는 엔티티다. DB-JPA 통신
+@Entity // jpa 어노테이션. 이 객체는 엔티티다. DB-JPA 통신 // name = "(Entity 이름)" 으로 JPQL 에서 참조할 entity이름 설정 가능.
 @Table(name = "new_student") // jakarta.persistence.Table 선택, spring boot 2.x 버전에서는 jakarta가 아니라 javax라는 패키지명임.
 public class StudentEntity {
 	@Id // jakarta.persistence.Id 선택. PK임을 알려줌. 다른 unique key가 있다면 사용하지 않음.
